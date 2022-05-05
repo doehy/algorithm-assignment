@@ -160,7 +160,7 @@ print("time :", time.time()-start)
 * * *
 
 ### 퀵 정렬
-정렬 알고리즘 중에서 가장 많이 사용되는 알고리즘이다.
+정렬 알고리즘 중에서 가장 많이 사용되는 알고리즘이다. 데이터가 정렬되어 있다면 최악의 경우 시간 복잡도가 O(N^2)이 나오지만 데이터가 정렬되어 있지 않다면 O(NlogN)이 나오는 정렬이다.
 
 #### 정렬된 데이터
 ```
@@ -359,7 +359,7 @@ print("time :", time.time()-start)
 ![버블정렬_랜덤](https://user-images.githubusercontent.com/87864025/166870449-c5a90891-9982-482c-8ba6-928f62872287.PNG)
 
 ### 쉘정렬
-일정 간격 떨어져 있는 원소들끼리 부분집합을 구성한 후 각 부분집합의 원소들에 대해서 삽입 정렬을 수행하되,간격을 줄여가며 삽입 정렬을 반복하여 전체 원소들을 정렬하는 방식의 정렬 알고리즘
+일정 간격 떨어져 있는 원소들끼리 부분집합을 구성한 후 각 부분집합의 원소들에 대해서 삽입 정렬을 수행하되,간격을 줄여가며 삽입 정렬을 반복하여 전체 원소들을 정렬하는 방식의 정렬 알고리즘이다. 삽입 정렬을 보완한 알고리즘이기 때문에 최악의 경우의 시간 복잡도는 O(N^2)이 나오지만 평균적으로는 O(N^1.5)가 나온다.
 #### 정렬된 데이터
 ```
 import time
@@ -429,6 +429,160 @@ print("time :", time.time()-start)
 ```
 
 ![쉘정렬_역정렬](https://user-images.githubusercontent.com/87864025/166871703-c01e3d9d-b9c3-453e-a1c4-c1def734e6cc.PNG)
+
+#### 랜덤 데이터
+```
+import time
+
+start = time.time()
+
+num_list= [32,512 , 128, 131072, 64, 524288, 2048, 32768, 8192, 16384,4096 , 65536,256 , 262144,1024 , 1048576]
+def shell_sort(arr):
+    N = len(arr)
+    h = N // 2
+    while h > 0:
+        for i in range(h, N):
+            temp = arr[i]
+            j = i - h
+            while j >= 0 and arr[j] > temp:
+                arr[j + h] = arr[j]
+                j -= h
+            arr[j + h] = temp
+        h //= 2
+ 
+    print(num_list)
+ 
+shell_sort(num_list)
+print("time :", time.time()-start)
+```
+![쉘 정렬_랜덤](https://user-images.githubusercontent.com/87864025/166886549-e729829e-a21a-496b-82a3-52940caa6acb.PNG)
+
+* * *
+
+### 힙 정렬
+최대 힙 트리나 최소 힙 트리를 구성해 정렬을 하는 방법이다.
+시간 복잡도는 평균적으로 O(nlog밑2N)이 걸린다.
+#### 정렬된 데이터
+```
+import time
+
+start = time.time()
+
+num_list= []
+
+for i in range(5,21):
+    n = pow(2,i)
+    num_list.append(n)
+
+num_list.sort()
+
+def heap_sort(array):
+    n = len(array)
+    for i in range(n):
+        c = i
+        while c != 0:
+            r = (c-1)//2
+            if (array[r] < array[c]):
+                array[r], array[c] = array[c], array[r]
+            c = r
+    for j in range(n-1, -1, -1):
+        array[0] , array[j] = array[j], array[0]
+        r = 0
+        c = 1
+        while c<j:
+            c = 2*r +1
+            
+            if (c<j-1) and (array[c] < array[c+1]):
+                c += 1
+           
+            if (c<j) and (array[r] < array[c]):
+                array[r], array[c] = array[c], array[r]
+            r=c
+    print(array)
+heap_sort(num_list)
+print("time :", time.time()-start)
+```
+![힙정렬_정렬](https://user-images.githubusercontent.com/87864025/166887119-09330695-96cd-4ae7-b636-1561f9ff33dc.PNG)
+
+#### 역으로 정렬된
+```
+import time
+
+start = time.time()
+
+num_list= []
+
+for i in range(5,21):
+    n = pow(2,i)
+    num_list.append(n)
+
+num_list.sort(reverse=True)
+
+def heap_sort(array):
+    n = len(array)
+    for i in range(n):
+        c = i
+        while c != 0:
+            r = (c-1)//2
+            if (array[r] < array[c]):
+                array[r], array[c] = array[c], array[r]
+            c = r
+    for j in range(n-1, -1, -1):
+        array[0] , array[j] = array[j], array[0]
+        r = 0
+        c = 1
+        while c<j:
+            c = 2*r +1
+            
+            if (c<j-1) and (array[c] < array[c+1]):
+                c += 1
+           
+            if (c<j) and (array[r] < array[c]):
+                array[r], array[c] = array[c], array[r]
+            r=c
+    print(array)
+heap_sort(num_list)
+print("time :", time.time()-start)
+```
+
+![힙정렬_역정렬](https://user-images.githubusercontent.com/87864025/166887271-6c8f13b1-371d-42dd-9d6c-6a1fc0b1280d.PNG)
+
+#### 랜덤 데이터
+```
+import time
+
+start = time.time()
+
+num_list= [32,512 , 128, 131072, 64, 524288, 2048, 32768, 8192, 16384,4096 , 65536,256 , 262144,1024 , 1048576]
+def heap_sort(array):
+    n = len(array)
+    for i in range(n):
+        c = i
+        while c != 0:
+            r = (c-1)//2
+            if (array[r] < array[c]):
+                array[r], array[c] = array[c], array[r]
+            c = r
+    for j in range(n-1, -1, -1):
+        array[0] , array[j] = array[j], array[0]
+        r = 0
+        c = 1
+        while c<j:
+            c = 2*r +1
+            
+            if (c<j-1) and (array[c] < array[c+1]):
+                c += 1
+           
+            if (c<j) and (array[r] < array[c]):
+                array[r], array[c] = array[c], array[r]
+            r=c
+    print(array)
+heap_sort(num_list)
+print("time :", time.time()-start)
+```
+![힙정렬_랜덤](https://user-images.githubusercontent.com/87864025/166887429-605fa46b-8bc7-4fa9-8f40-dae82c35fc2e.PNG)
+
+
 
 
 
