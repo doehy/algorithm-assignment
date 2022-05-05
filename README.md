@@ -282,6 +282,154 @@ print("time :", time.time()-start)
 
 ![퀵정렬_랜덤](https://user-images.githubusercontent.com/87864025/166868574-d83f40ba-98cc-4636-a701-25f778eea172.PNG)
 
+* * *
+### 버블 정렬
+선택정렬을 거꾸로 하는 것이라고 보면 된다. 그러므로 선택정렬과 똑같이 시간 복잡도는 O(N^2)이다.
+#### 정렬된 데이터
+```
+import time
+
+start = time.time()
+
+num_list= []
+
+for i in range(5,21):
+    n = pow(2,i)
+    num_list.append(n)
+
+num = len(num_list)
+num_list.sort()
+
+
+for i in range(len(num_list) - 1, 0, -1):
+        for j in range(i):
+            if num_list[j] > num_list[j + 1]:
+                num_list[j], num_list[j + 1] = num_list[j + 1], num_list[j]
+
+print(num_list)
+print("time :", time.time()-start)
+```
+
+![버블정렬_정렬된](https://user-images.githubusercontent.com/87864025/166870150-17e0a850-af52-49d5-b6fa-055d7ee367e7.PNG)
+
+#### 역으로 정렬된
+```
+import time
+
+start = time.time()
+
+num_list= []
+
+for i in range(5,21):
+    n = pow(2,i)
+    num_list.append(n)
+
+num = len(num_list)
+num_list.sort(reverse=True)
+
+
+for i in range(len(num_list) - 1, 0, -1):
+        for j in range(i):
+            if num_list[j] > num_list[j + 1]:
+                num_list[j], num_list[j + 1] = num_list[j + 1], num_list[j]
+
+print(num_list)
+print("time :", time.time()-start)
+```
+
+![버블정렬_역정렬](https://user-images.githubusercontent.com/87864025/166870266-64cd2e65-f84d-4963-945b-a8a0b575c816.PNG)
+
+#### 랜덤 데이터
+```
+import time
+
+start = time.time()
+
+num_list= [32,512 , 128, 131072, 64, 524288, 2048, 32768, 8192, 16384,4096 , 65536,256 , 262144,1024 , 1048576]
+
+for i in range(len(num_list) - 1, 0, -1):
+        for j in range(i):
+            if num_list[j] > num_list[j + 1]:
+                num_list[j], num_list[j + 1] = num_list[j + 1], num_list[j]
+
+print(num_list)
+print("time :", time.time()-start)
+```
+
+![버블정렬_랜덤](https://user-images.githubusercontent.com/87864025/166870449-c5a90891-9982-482c-8ba6-928f62872287.PNG)
+
+### 쉘정렬
+일정 간격 떨어져 있는 원소들끼리 부분집합을 구성한 후 각 부분집합의 원소들에 대해서 삽입 정렬을 수행하되,간격을 줄여가며 삽입 정렬을 반복하여 전체 원소들을 정렬하는 방식의 정렬 알고리즘
+#### 정렬된 데이터
+```
+import time
+
+start = time.time()
+
+num_list= []
+
+for i in range(5,21):
+    n = pow(2,i)
+    num_list.append(n)
+
+num_list.sort()
+
+def shell_sort(arr):
+    N = len(arr)
+    h = N // 2
+    while h > 0:
+        for i in range(h, N):
+            temp = arr[i]
+            j = i - h
+            while j >= 0 and arr[j] > temp:
+                arr[j + h] = arr[j]
+                j -= h
+            arr[j + h] = temp
+        h //= 2
+ 
+    print(num_list)
+ 
+shell_sort(num_list)
+print("time :", time.time()-start)
+```
+
+![쉘정렬_정렬된](https://user-images.githubusercontent.com/87864025/166871609-ff620e00-32f1-4196-b190-28fcd8659693.PNG)
+
+#### 역으로 정렬
+```
+import time
+
+start = time.time()
+
+num_list= []
+
+for i in range(5,21):
+    n = pow(2,i)
+    num_list.append(n)
+
+num_list.sort(reverse=True)
+
+def shell_sort(arr):
+    N = len(arr)
+    h = N // 2
+    while h > 0:
+        for i in range(h, N):
+            temp = arr[i]
+            j = i - h
+            while j >= 0 and arr[j] > temp:
+                arr[j + h] = arr[j]
+                j -= h
+            arr[j + h] = temp
+        h //= 2
+ 
+    print(num_list)
+ 
+shell_sort(num_list)
+print("time :", time.time()-start)
+```
+
+![쉘정렬_역정렬](https://user-images.githubusercontent.com/87864025/166871703-c01e3d9d-b9c3-453e-a1c4-c1def734e6cc.PNG)
+
 
 
 
